@@ -1,40 +1,28 @@
 package com.dio.academia.domain.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_aluno")
+@Table(name = "alunos")
 public class Aluno {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome",nullable = false)
     private String nome;
-
-    @Column(name = "idade",nullable = false)
     private int idade;
-
-    @Column(name = "peso",nullable = false)
-    private float peso;
-
-    @Column(name = "altura",nullable = false)
-    private float altura;
-
-    @Column(name = "email",nullable = false)
     private String email;
-
-    @Column(name = "telefone",nullable = false)
     private String telefone;
 
+    @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Treino> treinos;
+
+ 
 }
